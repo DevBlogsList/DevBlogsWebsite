@@ -1,0 +1,29 @@
+﻿@page "/"
+
+<h1>Hello, world</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+<section id="topic-selector">
+    @*<EditForm Model="@selectedTopics">*@
+    <ul>
+        @foreach (var topic in topics)
+        {
+            <li>@topic </li>
+
+        }
+
+    </ul>
+    @*</EditForm>*@
+</section>
+
+
+@code{
+    string[] topics = new string[] { ".NET", "Java", "AWS", "CSS", "Docker" };
+
+    List<string> selectedTopics = new List<string>();
+
+
+}
