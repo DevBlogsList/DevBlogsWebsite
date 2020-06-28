@@ -18,6 +18,11 @@ Welcome to your new app.
     </ul>
     @*</EditForm>*@
 </section>
+<section>
+
+    <DevBlogsWebsite.Components.SitesList Sites="sitesList"></DevBlogsWebsite.Components.SitesList>
+</section>
+
 
 
 @code{
@@ -25,5 +30,6 @@ Welcome to your new app.
 
     List<string> selectedTopics = new List<string>();
 
+    public List<Site> sitesList = new List<Site> { new Site() { Id = 1, Title = "Code4IT", Url = "www.code4it.dev" } };
 
 }
