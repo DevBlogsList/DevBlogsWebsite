@@ -1,0 +1,28 @@
+﻿<h3>Articles List</h3>
+
+@if (Articles?.Any() == true)
+{
+    foreach (var article in Articles)
+    {
+        <div>
+            <h2>@article.Title</h2>
+            <a href="@article.Url">@article.Author</a>
+            <div>Published at @article.PublishedAt.ToShortTimeString()</div>
+            <div>
+                Topics:
+                <ul>
+                    @foreach (var topic in article.Topics)
+                    {
+                        <li>@topic</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+}
+
+
+@code {
+    [Parameter]
+    public List<Article> Articles { get; set; }
+}

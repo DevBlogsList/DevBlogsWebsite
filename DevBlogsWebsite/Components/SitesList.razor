@@ -1,12 +1,11 @@
-﻿@using Data;
-
-<h3>SitesList</h3>
-@if (Sites?.Any() == true) {
+﻿<h3>Sites List</h3>
+@if (Sites?.Any() == true)
+{
     foreach (var site in Sites)
     {
         <div>
             <h2>@site.Title</h2>
-            <a href="@site.Url" > @site.Url</a>
+            <a href="@site.Url"> @site.Url</a>
         </div>
     }
 

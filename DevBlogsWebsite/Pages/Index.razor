@@ -1,35 +1,45 @@
 ﻿@page "/"
+@inject IDataRepository _dataRepository
 
 <h1>Hello, world</h1>
 
 Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?" />
-
 <section id="topic-selector">
-    @*<EditForm Model="@selectedTopics">*@
     <ul>
-        @foreach (var topic in topics)
+        @foreach (var topic in GetTopics())
         {
             <li>@topic </li>
-
         }
 
     </ul>
-    @*</EditForm>*@
 </section>
 <section>
 
-    <DevBlogsWebsite.Components.SitesList Sites="sitesList"></DevBlogsWebsite.Components.SitesList>
+    <SitesList Sites="GetSitesList()"></SitesList>
+</section>
+
+<section>
+    <ArticlesList Articles="GetArticles()"></ArticlesList>
+
 </section>
 
 
-
 @code{
-    string[] topics = new string[] { ".NET", "Java", "AWS", "CSS", "Docker" };
+    string[] topics = null;
 
-    List<string> selectedTopics = new List<string>();
+    public List<string> GetTopics() => _dataRepository.GetAvailableTopics().GetAwaiter().GetResult().ToList();
 
-    public List<Site> sitesList = new List<Site> { new Site() { Id = 1, Title = "Code4IT", Url = "www.code4it.dev" } };
+
+
+    public List<Site> GetSitesList()
+    {
+        return _dataRepository.GetSites(null, null, DateTime.MinValue).GetAwaiter().GetResult().ToList();
+    }
+
+    public List<Article> GetArticles()
+    {
+        return _dataRepository.GetArticles(null, null, DateTime.MinValue).GetAwaiter().GetResult().ToList();
+    }
 
 }
