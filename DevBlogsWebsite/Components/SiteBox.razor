@@ -1,9 +1,12 @@
-﻿<div class="siteBox">
-    <div class="siteName">@DisplayedSite.Title</div>
-    <div class="siteLink">
-        <a href="@DisplayedSite.Url">@DisplayedSite.Url</a>
+﻿<div class="siteBox card col-6 col" >
+    <div class="card-body">
+        <h4 class="card-title">@DisplayedSite.Title</h4>
+        @if (!string.IsNullOrWhiteSpace(DisplayedSite.Description))
+        {
+            <h5 class="card-subtitle">@DisplayedSite.Description</h5>
+        }
+        <a class="card-link" href="@DisplayedSite.Url">@DisplayedSite.Url</a>
     </div>
-
 </div>
 
 @code {

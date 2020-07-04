@@ -1,7 +1,6 @@
-﻿<h3>Sites List</h3>
-@if (Sites?.Any() == true)
+﻿@if (Sites?.Any() == true)
 {
-   <section id="sites-list">
+   <section id="sites-list" class=" row col col-12 withDebugBorder">
        @foreach (var site in Sites)
        {
            <SiteBox DisplayedSite="site"/>
@@ -11,7 +10,6 @@
 else
 {
     <p>No sites available</p>
-
 }
 
 
