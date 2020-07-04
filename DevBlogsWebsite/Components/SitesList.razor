@@ -1,14 +1,12 @@
 ﻿<h3>Sites List</h3>
 @if (Sites?.Any() == true)
 {
-    foreach (var site in Sites)
-    {
-        <div>
-            <h2>@site.Title</h2>
-            <a href="@site.Url"> @site.Url</a>
-        </div>
-    }
-
+   <section id="sites-list">
+       @foreach (var site in Sites)
+       {
+           <SiteBox DisplayedSite="site"/>
+       }
+   </section>
 }
 else
 {

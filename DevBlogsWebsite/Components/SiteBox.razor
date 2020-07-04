@@ -1,0 +1,12 @@
+﻿<div class="siteBox">
+    <div class="siteName">@DisplayedSite.Title</div>
+    <div class="siteLink">
+        <a href="@DisplayedSite.Url">@DisplayedSite.Url</a>
+    </div>
+
+</div>
+
+@code {
+    [Parameter]
+    public Site DisplayedSite { get; set; }
+}

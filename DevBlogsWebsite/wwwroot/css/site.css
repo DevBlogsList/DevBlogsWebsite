@@ -181,3 +181,8 @@ app {
         display: block;
     }
 }
+
+.siteBox{
+    border: solid red 1px;
+
+}
