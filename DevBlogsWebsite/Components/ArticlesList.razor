@@ -1,13 +1,18 @@
-﻿<h3>Articles List</h3>
+﻿
+<section id="articles-list" class=" row col col-12 ">
 
-@if (Articles?.Any() == true)
-{
-    foreach (var article in Articles)
+    @if (Articles?.Any() == true)
     {
-      <ArticleBox DisplayedArticle="article"/>
+        foreach (var article in Articles)
+        {
+            <ArticleBox DisplayedArticle="article" />
+        }
     }
-}
-
+    else
+    {
+        <p>No articles available</p>
+    }
+</section>
 
 @code {
     [Parameter]

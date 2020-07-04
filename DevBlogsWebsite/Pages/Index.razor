@@ -3,24 +3,31 @@
 @inject IArticleRepository _articleRepository
 @inject ITopicRepository _topicRepository
 
-<section id="topic-selector card">
-    <ul>
-        @foreach (var topic in GetTopics())
-        {
-            <li>@topic </li>
-        }
+<section id="topic-selector card content">
 
-    </ul>
+    <fieldset class="form-group col col-12">
+        <legend>Choose your interests</legend>
+        <div class="row">
+            @foreach (var topic in GetTopics())
+            {
+                <label for="paperChecks1" class="paper-check col col-2">
+                    <input type="checkbox" name="paperChecks" id="@topic" value="@topic"> <span>@topic</span>
+                </label>
+            }
+            </div>
+    </fieldset>
+
 </section>
 
-<div class="row flex-spaces tabs withDebugBorder">
+<div class="row flex-spaces tabs">
     <input id="tab1" type="radio" name="tabs" checked>
     <label for="tab1">Blogs</label>
 
     <input id="tab2" type="radio" name="tabs">
     <label for="tab2">Articles</label>
 
-    <div class="content " id="content1">
+
+    <div class="content" id="content1">
         <SitesList Sites="GetSitesList()"></SitesList>
     </div>
     <div class="content" id="content2">
@@ -34,7 +41,6 @@
     string[] topics = null;
 
     public List<string> GetTopics() => _topicRepository.GetAvailableTopics().GetAwaiter().GetResult().ToList();
-
 
 
     public List<Site> GetSitesList()

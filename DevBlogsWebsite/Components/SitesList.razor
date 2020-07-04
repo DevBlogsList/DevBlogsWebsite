@@ -1,20 +1,21 @@
-﻿@if (Sites?.Any() == true)
-{
-   <section id="sites-list" class=" row col col-12 withDebugBorder">
-       @foreach (var site in Sites)
-       {
-           <SiteBox DisplayedSite="site"/>
-       }
-   </section>
-}
-else
-{
-    <p>No sites available</p>
-}
+﻿<section id="sites-list" class=" row col col-12 ">
 
+    @if (Sites?.Any() == true)
+    {
+        @foreach (var site in Sites)
+        {
+            <SiteBox DisplayedSite="site" />
+        }
+    }
+    else
+    {
+        <p>No sites available</p>
+    }
 
-@code {
+</section>
 
-    [Parameter]
-    public List<Site> Sites { get; set; }
-}
+    @code {
+
+        [Parameter]
+        public List<Site> Sites { get; set; }
+    }
