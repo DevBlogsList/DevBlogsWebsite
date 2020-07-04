@@ -23,7 +23,9 @@ namespace DevBlogsWebsite
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddScoped<IDataRepository, MockDatRepository>();
+            services.AddScoped<ISiteRepository, MockDatRepository>();
+            services.AddScoped<IArticleRepository, MockDatRepository>();
+            services.AddScoped<ITopicRepository, MockDatRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

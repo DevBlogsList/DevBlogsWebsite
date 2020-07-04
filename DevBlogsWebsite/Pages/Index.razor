@@ -1,5 +1,7 @@
 ﻿@page "/"
-@inject IDataRepository _dataRepository
+@inject ISiteRepository _siteRepository
+@inject IArticleRepository _articleRepository
+@inject ITopicRepository _topicRepository
 
 <section id="topic-selector card">
     <ul>
@@ -19,30 +21,30 @@
     <label for="tab2">Articles</label>
 
     <div class="content " id="content1">
-            <SitesList Sites="GetSitesList()"></SitesList>
+        <SitesList Sites="GetSitesList()"></SitesList>
     </div>
     <div class="content" id="content2">
         <ArticlesList Articles="GetArticles()"></ArticlesList>
     </div>
 </div>
 
- 
+
 
 @code{
     string[] topics = null;
 
-    public List<string> GetTopics() => _dataRepository.GetAvailableTopics().GetAwaiter().GetResult().ToList();
+    public List<string> GetTopics() => _topicRepository.GetAvailableTopics().GetAwaiter().GetResult().ToList();
 
 
 
     public List<Site> GetSitesList()
     {
-        return _dataRepository.GetSites(null, null, DateTime.MinValue).GetAwaiter().GetResult().ToList();
+        return _siteRepository.GetSites(null, null, DateTime.MinValue).GetAwaiter().GetResult().ToList();
     }
 
     public List<Article> GetArticles()
     {
-        return _dataRepository.GetArticles(null, null, DateTime.MinValue).GetAwaiter().GetResult().ToList();
+        return _articleRepository.GetArticles(null, null, DateTime.MinValue).GetAwaiter().GetResult().ToList();
     }
 
 }

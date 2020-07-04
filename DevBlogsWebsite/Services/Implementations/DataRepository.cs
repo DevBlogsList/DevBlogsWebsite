@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DevBlogsWebsite.Services.Implementations
 {
-    public class DataRepository : IDataRepository
+    public class DataRepository : IArticleRepository, ISiteRepository, ITopicRepository
     {
         public Task<IEnumerable<Article>> GetArticles(string[] topics, string text, DateTime minDate)
         {
@@ -24,7 +24,7 @@ namespace DevBlogsWebsite.Services.Implementations
         }
     }
 
-    public class MockDatRepository : IDataRepository
+    public class MockDatRepository : IArticleRepository, ISiteRepository, ITopicRepository
     {
         public async Task<IEnumerable<Article>> GetArticles(string[] topics, string text, DateTime minDate)
         {
