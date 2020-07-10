@@ -1,0 +1,15 @@
+﻿<div class="siteBox card col-5 col margin" >
+    <div class="card-body">
+        <h4 class="card-title">@DisplayedSite.Title</h4>
+        @if (!string.IsNullOrWhiteSpace(DisplayedSite.Description))
+        {
+            <h5 class="card-subtitle">@DisplayedSite.Description</h5>
+        }
+        <a class="card-link" href="@DisplayedSite.Url">@DisplayedSite.Url</a>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Site DisplayedSite { get; set; }
+}

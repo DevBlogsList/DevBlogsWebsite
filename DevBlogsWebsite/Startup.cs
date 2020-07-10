@@ -1,17 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using DevBlogsWebsite.Services.Contracts;
+using DevBlogsWebsite.Services.Implementations;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using DevBlogsWebsite.Data;
-using DevBlogsWebsite.Services.Implementations;
-using DevBlogsWebsite.Services.Contracts;
 
 namespace DevBlogsWebsite
 {
@@ -30,7 +23,9 @@ namespace DevBlogsWebsite
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddScoped<IDataRepository, MockDatRepository>();
+            services.AddScoped<ISiteRepository, MockDatRepository>();
+            services.AddScoped<IArticleRepository, MockDatRepository>();
+            services.AddScoped<ITopicRepository, MockDatRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

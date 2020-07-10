@@ -1,0 +1,19 @@
+﻿
+<div class="articleBox card col-5 col margin">
+    <div class="card-body">
+        <h4 class="card-title">@DisplayedArticle.Title</h4>
+        @if (!string.IsNullOrWhiteSpace(DisplayedArticle.Author))
+        {
+            <h5 class="card-subtitle">Published by <b>@DisplayedArticle.Author </b></h5>
+        }
+        <a class="card-link" href="@DisplayedArticle.Url">@DisplayedArticle.Url</a>
+        <h6>@DisplayedArticle.PublishedAt.ToShortDateString()</h6>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public Article DisplayedArticle { get; set; }
+}
+

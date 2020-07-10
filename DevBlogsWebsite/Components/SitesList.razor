@@ -1,24 +1,21 @@
-﻿<h3>Sites List</h3>
-@if (Sites?.Any() == true)
-{
-    foreach (var site in Sites)
+﻿<section id="sites-list" class=" row col col-12 ">
+
+    @if (Sites?.Any() == true)
     {
-        <div>
-            <h2>@site.Title</h2>
-            <a href="@site.Url"> @site.Url</a>
-        </div>
+        @foreach (var site in Sites)
+        {
+            <SiteBox DisplayedSite="site" />
+        }
+    }
+    else
+    {
+        <p>No sites available</p>
     }
 
-}
-else
-{
-    <p>No sites available</p>
+</section>
 
-}
+    @code {
 
-
-@code {
-
-    [Parameter]
-    public List<Site> Sites { get; set; }
-}
+        [Parameter]
+        public List<Site> Sites { get; set; }
+    }

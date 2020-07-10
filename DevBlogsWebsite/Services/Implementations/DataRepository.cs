@@ -2,12 +2,11 @@
 using DevBlogsWebsite.Services.Contracts;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DevBlogsWebsite.Services.Implementations
 {
-    public class DataRepository : IDataRepository
+    public class DataRepository : IArticleRepository, ISiteRepository, ITopicRepository
     {
         public Task<IEnumerable<Article>> GetArticles(string[] topics, string text, DateTime minDate)
         {
@@ -25,7 +24,7 @@ namespace DevBlogsWebsite.Services.Implementations
         }
     }
 
-    public class MockDatRepository : IDataRepository
+    public class MockDatRepository : IArticleRepository, ISiteRepository, ITopicRepository
     {
         public async Task<IEnumerable<Article>> GetArticles(string[] topics, string text, DateTime minDate)
         {
@@ -63,7 +62,7 @@ namespace DevBlogsWebsite.Services.Implementations
         public async Task<IEnumerable<Site>> GetSites(string[] topics, string text, DateTime minDate)
         {
             var sitesList = new List<Site>();
-            sitesList.Add(new Site { Id = 1, Title = "Code4IT", Url = "https://www.code4it.dev/" });
+            sitesList.Add(new Site { Id = 1, Title = "Code4IT", Url = "https://www.code4it.dev/", Description = "Italian way of code" });
             sitesList.Add(new Site { Id = 2, Title = "Kilt & Code", Url = "https://www.kiltandcode.com/" });
             return await Task.FromResult<IEnumerable<Site>>(sitesList);
         }

@@ -1,45 +1,56 @@
 ﻿@page "/"
-@inject IDataRepository _dataRepository
+@inject ISiteRepository _siteRepository
+@inject IArticleRepository _articleRepository
+@inject ITopicRepository _topicRepository
 
-<h1>Hello, world</h1>
+<section id="topic-selector card content">
 
-Welcome to your new app.
-
-<section id="topic-selector">
-    <ul>
-        @foreach (var topic in GetTopics())
-        {
-            <li>@topic </li>
-        }
-
-    </ul>
-</section>
-<section>
-
-    <SitesList Sites="GetSitesList()"></SitesList>
-</section>
-
-<section>
-    <ArticlesList Articles="GetArticles()"></ArticlesList>
+    <fieldset class="form-group col col-12">
+        <legend>Choose your interests</legend>
+        <div class="row">
+            @foreach (var topic in GetTopics())
+            {
+                <label for="paperChecks1" class="paper-check col col-2">
+                    <input type="checkbox" name="paperChecks" id="@topic" value="@topic"> <span>@topic</span>
+                </label>
+            }
+            </div>
+    </fieldset>
 
 </section>
+
+<div class="row flex-spaces tabs">
+    <input id="tab1" type="radio" name="tabs" checked>
+    <label for="tab1">Blogs</label>
+
+    <input id="tab2" type="radio" name="tabs">
+    <label for="tab2">Articles</label>
+
+
+    <div class="content" id="content1">
+        <SitesList Sites="GetSitesList()"></SitesList>
+    </div>
+    <div class="content" id="content2">
+        <ArticlesList Articles="GetArticles()"></ArticlesList>
+    </div>
+</div>
+
 
 
 @code{
     string[] topics = null;
 
-    public List<string> GetTopics() => _dataRepository.GetAvailableTopics().GetAwaiter().GetResult().ToList();
-
+    public List<string> GetTopics() => _topicRepository.GetAvailableTopics().GetAwaiter().GetResult().ToList();
 
 
     public List<Site> GetSitesList()
     {
-        return _dataRepository.GetSites(null, null, DateTime.MinValue).GetAwaiter().GetResult().ToList();
+        return _siteRepository.GetSites(null, null, DateTime.MinValue).GetAwaiter().GetResult().ToList();
     }
 
     public List<Article> GetArticles()
     {
-        return _dataRepository.GetArticles(null, null, DateTime.MinValue).GetAwaiter().GetResult().ToList();
+        return _articleRepository.GetArticles(null, null, DateTime.MinValue).GetAwaiter().GetResult().ToList();
     }
 
 }
