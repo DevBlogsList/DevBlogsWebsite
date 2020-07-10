@@ -5,17 +5,37 @@
 
 <section id="topic-selector card content">
 
-    <fieldset class="form-group col col-12">
-        <legend>Choose your interests</legend>
-        <div class="row">
-            @foreach (var topic in GetTopics())
-            {
-                <label for="paperChecks1" class="paper-check col col-2">
-                    <input type="checkbox" name="paperChecks" id="@topic" value="@topic"> <span>@topic</span>
-                </label>
-            }
+    <EditForm Model="@formModel" OnValidSubmit="HandleValidSubmit">
+        <div class="form-group">
+            <InputText id="name" @bind-Value="formModel.SearchText" />
+        </div>
+
+        <fieldset class="form-group col col-12">
+            <legend>Choose your interests</legend>
+            <div class="row">
+                @foreach (var topic in GetTopics())
+                {
+                    <label for="@topic" class="paper-check col col-2">
+                        <input type="checkbox" value="@topic" name="paperChecks" id="@topic"
+                               checked="@(formModel.SelectedTopics.Contains(topic))" @onchange="eventArgs => { CheckboxClicked(topic); }" />
+                        <span>@topic</span>
+                    </label>
+                }
             </div>
-    </fieldset>
+        </fieldset>
+
+        <div class="form-group">
+            <label for="pageSize">Number of results</label>
+            <select id="pageSize" @bind="formModel.PageSize">
+                @foreach (var size in PageSizes)
+                {
+                    <option value="@size">@size</option>
+                }
+            </select>
+        </div>
+        <button type="submit">Submit</button>
+
+    </EditForm>
 
 </section>
 
@@ -28,29 +48,35 @@
 
 
     <div class="content" id="content1">
-        <SitesList Sites="GetSitesList()"></SitesList>
+        <SitesList Sites="sites"></SitesList>
     </div>
     <div class="content" id="content2">
-        <ArticlesList Articles="GetArticles()"></ArticlesList>
+        <ArticlesList Articles="articles"></ArticlesList>
     </div>
 </div>
 
-
-
 @code{
-    string[] topics = null;
+
+    private FormModel formModel = new FormModel();
+    private List<Site> sites = new List<Site>();
+    private List<Article> articles = new List<Article>();
+
+
+    private void HandleValidSubmit()
+    {
+        var searchInfo = new SearchInfo { PageSize = formModel.PageSize, Topics = formModel.SelectedTopics.ToArray() };
+        sites = _siteRepository.GetSites(searchInfo).GetAwaiter().GetResult().ToList();
+        articles = _articleRepository.GetArticles(searchInfo).GetAwaiter().GetResult().ToList();
+    }
+
+
+    private void CheckboxClicked(string topic)
+    {
+        formModel.ToggleSelectedTopic(topic);
+
+    }
+
+    private int[] PageSizes = new[] { 10, 20, 50 };
 
     public List<string> GetTopics() => _topicRepository.GetAvailableTopics().GetAwaiter().GetResult().ToList();
-
-
-    public List<Site> GetSitesList()
-    {
-        return _siteRepository.GetSites(null, null, DateTime.MinValue).GetAwaiter().GetResult().ToList();
-    }
-
-    public List<Article> GetArticles()
-    {
-        return _articleRepository.GetArticles(null, null, DateTime.MinValue).GetAwaiter().GetResult().ToList();
-    }
-
 }
