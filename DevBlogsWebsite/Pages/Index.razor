@@ -6,6 +6,11 @@
 Welcome to your new app.
 
 <section id="topic-selector">
+    <EditForm Model="@formModel" OnValidSubmit="HandleValidSubmit">
+        <InputText id="searchText" @bind-Value="@formModel.SearchText" />
+        <button type="submit">Submit</button>
+    </EditForm>
+
     <ul>
         @foreach (var topic in GetTopics())
         {
@@ -26,6 +31,17 @@ Welcome to your new app.
 
 
 @code{
+
+
+    private FormModel formModel = new FormModel();
+
+    private void HandleValidSubmit()
+    {
+        Console.WriteLine("OnValidSubmit");
+
+    }
+
+
     string[] topics = null;
 
     public List<string> GetTopics() => _dataRepository.GetAvailableTopics().GetAwaiter().GetResult().ToList();
